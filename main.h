@@ -19,6 +19,7 @@ typedef struct print
 	int (*f)(va_list, char *, unsigned int):
 } print_t;
 
-int _printf(const char *format, ...):
+int _printf(const char *format, ...);
+int _strlen(char *str);
 
-#endif
+#endif /* _MAIN_H */

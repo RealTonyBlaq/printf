@@ -1,10 +1,4 @@
 #include "main.h"
-/**
- * these function prototype should be included in
- * the header file and not here.
-int _printf(const char *format, ...);
-int _strlen(char *str);
-*/
 
 /**
  * _printf - My own printf function
