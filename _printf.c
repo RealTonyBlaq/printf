@@ -32,7 +32,7 @@ int _printf(const char *format, ...)
 						printer += write(1, s, _strlen(s));
 						break;
 					}
-					printer += write(1, "(nil)", sizeof("(nil)") - 1);
+					printer += write(1, "(null)", sizeof("(null)") - 1);
 					break;
 				default:
 					printer += write(1, format, 1);
