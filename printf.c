@@ -14,7 +14,7 @@ int _printf(const char *format, ...)
 	va_list var;
 
 	va_start(var, format);
-	while (*format != '\0')
+	while (format && *format != '\0')
 	{
 		if (*format == '%')
 		{
@@ -34,15 +34,17 @@ int _printf(const char *format, ...)
 					}
 					printer += write(1, "(null)", sizeof("(null)") - 1);
 					break;
+				case '%':
+					printer += write(1, "%", 1);
+					break;
 				default:
+					printer += write(1, "%", 1);
 					printer += write(1, format, 1);
 					break;
 			}
 		}
 		else
-		{
 			printer += write(1, format, 1);
-		}
 		format++;
 	}
 	va_end(var);
