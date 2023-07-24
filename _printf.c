@@ -1,69 +1,51 @@
 #include "main.h"
 
 /**
- * _printf - My own printf function
- * @format: Contains the format specifiers
+ * _printf - formatted output conversion and print data.
+ * @format: input string.
  *
- * Return: The _printf count, 0 (success)
+ * Return: number of chars printed.
  */
-
 int _printf(const char *format, ...)
 {
-	int printer = 0;
-	char *s, c;
-	va_list var;
+	unsigned int i = 0, len = 0, ibuf = 0;
+	va_list arguments;
+	int (*function)(va_list, char *, unsigned int);
+	char *buffer;
 
-	va_start(var, format);
-	while (*format != '\0')
+	va_start(arguments, format), buffer = malloc(sizeof(char) * 1024);
+	if (!format || !buffer || (format[i] == '%' && !format[i + 1]))
+		return (-1);
+	if (!format[i])
+		return (0);
+	for (i = 0; format && format[i]; i++)
 	{
-		if (*format == '%')
+		if (format[i] == '%')
 		{
-			format++;
-			switch (*format)
-			{
-				case 'c':
-					c = va_arg(var, int);
-					printer += write(1, &c, 1);
-					break;
-				case 's':
-					s = va_arg(var, char *);
-					if (s != NULL)
-					{
-						printer += write(1, s, _strlen(s));
-						break;
-					}
-					printer += write(1, "(null)", sizeof("(null)") - 1);
-					break;
-				default:
-					printer += write(1, format, 1);
-					break;
+			if (format[i + 1] == '\0')
+			{	print_buf(buffer, ibuf), free(buffer), va_end(arguments);
+				return (-1);
 			}
+			else
+			{	function = get_print_func(format, i + 1);
+				if (function == NULL)
+				{
+					if (format[i + 1] == ' ' && !format[i + 2])
+						return (-1);
+					handl_buf(buffer, format[i], ibuf), len++, i--;
+				}
+				else
+				{
+					len += function(arguments, buffer, ibuf);
+					i += ev_print_func(format, i + 1);
+				}
+			} i++;
 		}
 		else
-		{
-			printer += write(1, format, 1);
-		}
-		format++;
+			handl_buf(buffer, format[i], ibuf), len++;
+		for (ibuf = len; ibuf > 1024; ibuf -= 1024)
+			;
 	}
-	va_end(var);
-	return (printer);
-}
-
-/**
- * _strlen - Returns the length of a string
- * @str: The string
- *
- * Return: Always 0 (Success)
- */
-
-int _strlen(char *str)
-{
-	int len = 0;
-
-	while (*str != '\0')
-	{
-		len++;
-		str++;
-	}
+	print_buf(buffer, ibuf), free(buffer), va_end(arguments);
 	return (len);
 }
