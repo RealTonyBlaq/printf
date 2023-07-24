@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stddef.h>
 
 /**
  * struct print - struct for printer functions
@@ -21,9 +22,11 @@ typedef struct print
 
 int _printf(const char *format, ...);
 int _strlen(char *str);
+int _puts_string(char *str);
+int _putchar(char c);
 unsigned int handl_buf(char *buf, char c, unsigned int ibuf);
 int ev_print_func(const char *s, int index);
-
+int null_checker(char *str);
 int (*get_print_func(const char *s, int index))(va_list, char *, unsigned int);
 int print_buf(char *buf, unsigned int nbuf);
 
