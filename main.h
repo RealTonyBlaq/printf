@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <stdio.h>
 
 /**
  * struct print - struct for printer functions

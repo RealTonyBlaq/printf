@@ -11,6 +11,11 @@ int _puts_int(int n)
 {
 	int n_bytes = 0;
 
+	if (n == 0)
+	{
+		write(1, "0", 1);
+		return (1);
+	}
 	if (n < 0)
 	{
 		n_bytes += _putchar('-');
