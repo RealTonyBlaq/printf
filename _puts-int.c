@@ -11,12 +11,17 @@ int _puts_int(int n)
 {
 	int n_bytes = 0;
 
+	if (n == INT_MIN)
+	{
+		n_bytes += _puts_string("-2147483648");
+		return (n_bytes);
+	}
 	if (n == 0)
 	{
 		write(1, "0", 1);
 		return (1);
 	}
-	if (n < 0)
+	if (n < 0 && n >= INT_MIN)
 	{
 		n_bytes += _putchar('-');
 		n = -n;
