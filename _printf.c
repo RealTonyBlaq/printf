@@ -20,29 +20,20 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			if (*format == '\0')
+			if ((*format == '\0') || (*format == ' '))
 				return (-1);
-			switch (*format)
+			if (*format == 'c')
+				printer += _putchar(va_arg(var, int));
+			else if (*format == 's')
+				printer += _puts_string(va_arg(var, char *));
+			else if (*format == '%')
+				printer += write(1, "%", 1);
+			else if ((*format == 'd') || (*format == 'i'))
+				printer += _puts_int(va_arg(var, int));
+			else
 			{
-				case 'c':
-					printer += _putchar(va_arg(var, int));
-					break;
-				case 's':
-					printer += _puts_string(va_arg(var, char *));
-					break;
-				case '%':
-					printer += write(1, "%", 1);
-					break;
-				case ' ':
-					return (-1);
-				case 'd':
-				case 'i':
-					_puts_int(va_arg(var, int));
-					break;
-				default:
-					printer += write(1, "%", 1);
-					printer += write(1, format, 1);
-					break;
+				printer += write(1, "%", 1);
+				printer += write(1, format, 1);
 			}
 		}
 		else
