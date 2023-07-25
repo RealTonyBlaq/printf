@@ -35,6 +35,10 @@ int _printf(const char *format, ...)
 					break;
 				case ' ':
 					return (-1);
+				case 'd':
+				case 'i':
+					_puts_int(va_arg(var, int));
+					break;
 				default:
 					printer += write(1, "%", 1);
 					printer += write(1, format, 1);
