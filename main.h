@@ -28,6 +28,5 @@ unsigned int handl_buf(char *buf, char c, unsigned int ibuf);
 int ev_print_func(const char *s, int index);
 int null_checker(char *str);
 int (*get_print_func(const char *s, int index))(va_list, char *, unsigned int);
-int print_buf(char *buf, unsigned int nbuf);
 
 #endif /* _MAIN_H */
