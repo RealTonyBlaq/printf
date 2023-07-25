@@ -13,7 +13,7 @@ int _puts_string(char *str)
 
 	if (str == NULL)
 	{
-		write(1, "(null)", sizeof("null") - 1);
+		write(1, "(null)", sizeof("(null)") - 1);
 		return (6);
 	}
 	while (str[i] != '\0')
