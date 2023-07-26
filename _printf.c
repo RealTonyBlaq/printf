@@ -30,6 +30,8 @@ int _printf(const char *format, ...)
 				printer += write(1, "%", 1);
 			else if ((*format == 'd') || (*format == 'i'))
 				printer += _puts_int(va_arg(var, int));
+			else if (*format == 'b')
+				printer += conv_bin(va_arg(var, int));
 			else
 			{
 				printer += write(1, "%", 1);
